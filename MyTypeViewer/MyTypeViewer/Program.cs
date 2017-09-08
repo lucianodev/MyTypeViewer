@@ -12,10 +12,24 @@ namespace MyTypeViewer
     {
         static void ListarMetodos(Type t)
         {
+            string retval, paraminfo;
+            
             Console.WriteLine("****** Metodos ******");
             MethodInfo[] mi = t.GetMethods();
-            foreach (MethodInfo  i in mi)
-                Console.WriteLine($"->{i.Name}");
+            foreach (MethodInfo i in mi)
+            {
+                //valor de retorno
+                retval = i.ReturnType.FullName;
+
+                //parametros
+                paraminfo = "(";
+                foreach (ParameterInfo p in i.GetParameters())
+                {
+                    paraminfo += $"{p.ParameterType} {p.Name} ";
+                }
+                paraminfo += ")";
+                Console.WriteLine($"->{retval}, {i.Name}, {paraminfo}");
+            }  
             Console.WriteLine();
         }
 
